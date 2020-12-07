@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Employee App" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="271*"/>
+            <ColumnDefinition Width="521*"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox x:Name="ckbxFullTime" Content="Full Time" HorizontalAlignment="Left" Margin="49,14,0,0" VerticalAlignment="Top" Height="15" Width="68"/>
+        <CheckBox x:Name="ckbxPartTime" Content="Part Time" HorizontalAlignment="Left" Margin="135,14,0,0" VerticalAlignment="Top" Height="15" Width="70"/>
+        <TextBlock x:Name="tblkEmployees" HorizontalAlignment="Left" Margin="54,34,0,0" TextWrapping="Wrap" Text="EMPLOYEES" VerticalAlignment="Top" Height="16" Width="63"/>
+        <ListBox x:Name="lbxEmployees" HorizontalAlignment="Left" Height="334" Margin="49,55,0,0" VerticalAlignment="Top" Width="221"/>
+        <TextBlock x:Name="tblkFirstName" HorizontalAlignment="Left" Margin="48,56,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="57"/>
+        <TextBox x:Name="tbxFirstName" HorizontalAlignment="Left" Height="23" Margin="154,55,0,0" TextWrapping="Wrap" Text="First Name..." VerticalAlignment="Top" Width="120" FontStyle="Italic" Grid.Column="1"/>
+        <TextBlock x:Name="tblkLastName" HorizontalAlignment="Left" Margin="48,99,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="56"/>
+        <TextBox x:Name="tbxLastName" HorizontalAlignment="Left" Height="23" Margin="154,98,0,0" TextWrapping="Wrap" Text="Last Name..." VerticalAlignment="Top" Width="120" FontStyle="Italic" Grid.Column="1"/>
+        <RadioButton x:Name="rbtnFullTime" Content="FT" HorizontalAlignment="Left" Margin="154,146,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="31"/>
+        <RadioButton x:Name="rbtnPartTime" Content="PT" HorizontalAlignment="Left" Margin="212,146,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="32"/>
+        <TextBlock x:Name="tblkSalary" HorizontalAlignment="Left" Margin="48,178,0,0" TextWrapping="Wrap" Text="Salary" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="31"/>
+        <TextBox x:Name="tbxSalary" HorizontalAlignment="Left" Height="23" Margin="154,177,0,0" TextWrapping="Wrap" Text="Salary..." VerticalAlignment="Top" Width="120" FontStyle="Italic" Grid.Column="1"/>
+        <TextBlock x:Name="tblkHoursWorked" HorizontalAlignment="Left" Margin="48,223,0,0" TextWrapping="Wrap" Text="Hours Worked" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="76"/>
+        <TextBox x:Name="tbxHoursWorked" HorizontalAlignment="Left" Height="23" Margin="154,222,0,0" TextWrapping="Wrap" Text="Hours Worked..." VerticalAlignment="Top" Width="120" FontStyle="Italic" Grid.Column="1"/>
+        <TextBlock x:Name="tblkHourlyRate" HorizontalAlignment="Left" Margin="48,267,0,0" TextWrapping="Wrap" Text="Hourly Rate" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="62"/>
+        <TextBox x:Name="tbxHourlyRate" HorizontalAlignment="Left" Height="23" Margin="154,266,0,0" TextWrapping="Wrap" Text="Hourly Rate..." VerticalAlignment="Top" Width="120" FontStyle="Italic" Grid.Column="1"/>
+        <TextBlock x:Name="tblkMonthlyPayText" HorizontalAlignment="Left" Margin="48,349,0,0" TextWrapping="Wrap" Text="Monthly Pay" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="66"/>
+        <TextBlock x:Name="tblkMonthlyPay" HorizontalAlignment="Left" Margin="154,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="0"/>
+        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="408,55,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="408,124,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="408,195,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="408,269,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
+
     </Grid>
 </Window>
