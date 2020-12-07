@@ -12,6 +12,16 @@ namespace EmployeeApp
 
         public double HoursWorked { get; set; }
 
+        public PartTimeEmployee(string firstName, string lastName, decimal hourlyRate, double hoursWorked) : base(firstName, lastName)
+        {
+            HourlyRate = hourlyRate;
+            HoursWorked = hoursWorked;
+        }
+
+        public PartTimeEmployee(string firstName, string lastName) : base(firstName, lastName) { }
+
+        public PartTimeEmployee() : base("Unknown", "Unknown") { }
+
         public override decimal CalculateMonthlyPay()
         {
             decimal pay = (decimal)HoursWorked * HourlyRate;

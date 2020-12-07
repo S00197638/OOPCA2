@@ -12,6 +12,12 @@ namespace EmployeeApp
 
         public string LastName { get; set; }
 
+        public Employee(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
         public virtual decimal CalculateMonthlyPay()
         {
             decimal monthlyPay = 0;

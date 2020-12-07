@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeApp"
         mc:Ignorable="d"
-        Title="Employee App" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Employee App" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="271*"/>
