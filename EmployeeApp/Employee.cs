@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp
 {
-    public abstract class Employee
+    public abstract class Employee : IComparable
     {
         public string FirstName { get; set; }
 
@@ -18,11 +18,17 @@ namespace EmployeeApp
             LastName = lastName;
         }
 
-        public virtual decimal CalculateMonthlyPay()
-        {
-            decimal monthlyPay = 0;
-            return monthlyPay;
-        }
+        public abstract decimal CalculateMonthlyPay();
 
+        public int CompareTo(object otherObject)
+        {
+            Employee temp = (Employee)otherObject;
+            int returnValue = this.LastName.CompareTo(temp.LastName);//Sort by LastName
+
+            if (returnValue == 0)
+                returnValue = this.FirstName.CompareTo(temp.FirstName);//If LastName is the same, Sort by FirstName
+
+            return returnValue;
+        }
     }
 }

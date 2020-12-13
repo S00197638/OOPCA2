@@ -22,6 +22,11 @@ namespace EmployeeApp
 
         public PartTimeEmployee() : base("Unknown", "Unknown") { }
 
+        public override string ToString()
+        {
+            return string.Format("{0}, {1} - Part Time", LastName.ToUpper(), FirstName);
+        }
+
         public override decimal CalculateMonthlyPay()
         {
             decimal pay = (decimal)HoursWorked * HourlyRate;

@@ -8,8 +8,8 @@
         Title="Employee App" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="271*"/>
-            <ColumnDefinition Width="521*"/>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="257*"/>
         </Grid.ColumnDefinitions>
         <CheckBox x:Name="ckbxFullTime" Content="Full Time" HorizontalAlignment="Left" Margin="49,14,0,0" VerticalAlignment="Top" Height="15" Width="68"/>
         <CheckBox x:Name="ckbxPartTime" Content="Part Time" HorizontalAlignment="Left" Margin="135,14,0,0" VerticalAlignment="Top" Height="15" Width="70"/>
