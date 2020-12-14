@@ -11,8 +11,8 @@
             <ColumnDefinition Width="139*"/>
             <ColumnDefinition Width="257*"/>
         </Grid.ColumnDefinitions>
-        <CheckBox x:Name="ckbxFullTime" Content="Full Time" HorizontalAlignment="Left" Margin="49,14,0,0" VerticalAlignment="Top" Height="15" Width="68"/>
-        <CheckBox x:Name="ckbxPartTime" Content="Part Time" HorizontalAlignment="Left" Margin="135,14,0,0" VerticalAlignment="Top" Height="15" Width="70"/>
+        <CheckBox x:Name="ckbxFullTime" Content="Full Time" HorizontalAlignment="Left" Margin="49,14,0,0" VerticalAlignment="Top" Height="15" Width="68" Checked="ckbxFullTime_Checked" Unchecked="ckbxFullTime_Unchecked"/>
+        <CheckBox x:Name="ckbxPartTime" Content="Part Time" HorizontalAlignment="Left" Margin="135,14,0,0" VerticalAlignment="Top" Height="15" Width="70" Checked="ckbxPartTime_Checked" Unchecked="ckbxPartTime_Unchecked"/>
         <TextBlock x:Name="tblkEmployees" HorizontalAlignment="Left" Margin="54,34,0,0" TextWrapping="Wrap" Text="EMPLOYEES" VerticalAlignment="Top" Height="16" Width="63"/>
         <ListBox x:Name="lbxEmployees" HorizontalAlignment="Left" Height="334" Margin="49,55,0,0" VerticalAlignment="Top" Width="221"/>
         <TextBlock x:Name="tblkFirstName" HorizontalAlignment="Left" Margin="48,56,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="57"/>

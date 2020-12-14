@@ -21,9 +21,8 @@ namespace EmployeeApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
-        ObservableCollection<FullTimeEmployee> fullTimeEmployees = new ObservableCollection<FullTimeEmployee>();
-        ObservableCollection<PartTimeEmployee> partTimeEmployees = new ObservableCollection<PartTimeEmployee>();
+        List<Employee> employees = new List<Employee>();
+        List<Employee> filteredEmployees = new List<Employee>();
 
         public MainWindow()
         {
@@ -34,26 +33,77 @@ namespace EmployeeApp
         {
             FullTimeEmployee fEmp1 = new FullTimeEmployee("Leopold", "Fitz", 32000);
             FullTimeEmployee fEmp2 = new FullTimeEmployee("Gemma", "Simmons", 35000);
-            PartTimeEmployee pEmp1 = new PartTimeEmployee("Grant", "Ward", 17/2, 10);
-            PartTimeEmployee pEmp2 = new PartTimeEmployee("Daisy", "Johnson", 19/2, 10);
+            PartTimeEmployee pEmp1 = new PartTimeEmployee("Grant", "Ward", 8.5m, 10);
+            PartTimeEmployee pEmp2 = new PartTimeEmployee("Daisy", "Johnson", 9.5m, 10);
 
             employees.Add(fEmp1);
             employees.Add(fEmp2);
             employees.Add(pEmp1);
             employees.Add(pEmp2);
-            fullTimeEmployees.Add(fEmp1);
-            fullTimeEmployees.Add(fEmp2);
-            partTimeEmployees.Add(pEmp1);
-            partTimeEmployees.Add(pEmp2);
 
-            UpdateEmpListDisplay();
+            ckbxFullTime.IsChecked = true;
+            ckbxPartTime.IsChecked = true;
+
+            CkBxIsChecked();
         }
 
-        private void UpdateEmpListDisplay()
+        private void CkBxIsChecked()
         {
-            var empList = employees.ToList();
-            empList.Sort();
-            lbxEmployees.ItemsSource = empList;
+            if (ckbxFullTime.IsChecked == true && ckbxPartTime.IsChecked == true)
+            {
+                employees.Sort();
+                lbxEmployees.ItemsSource = employees;
+            }
+            else if (ckbxFullTime.IsChecked == true && ckbxPartTime.IsChecked == false)
+            {
+                filteredEmployees.Clear();
+
+                foreach (Employee employee in employees)
+                {
+                    if (employee is FullTimeEmployee)
+                        filteredEmployees.Add(employee);
+                }
+
+                filteredEmployees.Sort();
+                lbxEmployees.ItemsSource = filteredEmployees;
+            }
+            else if (ckbxPartTime.IsChecked == true && ckbxFullTime.IsChecked == false)
+            {
+                filteredEmployees.Clear();
+                
+                foreach (Employee employee in employees)
+                {
+                    if (employee is PartTimeEmployee)
+                        filteredEmployees.Add(employee);
+                }
+
+                filteredEmployees.Sort();
+                lbxEmployees.ItemsSource = filteredEmployees;
+            }
+            else if(ckbxFullTime.IsChecked == false && ckbxPartTime.IsChecked == false)
+            {
+                lbxEmployees.ItemsSource = null;
+            }
+        }
+
+        private void ckbxFullTime_Checked(object sender, RoutedEventArgs e)
+        {
+            CkBxIsChecked();
+        }
+
+        private void ckbxFullTime_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CkBxIsChecked();
+        }
+
+        private void ckbxPartTime_Checked(object sender, RoutedEventArgs e)
+        {
+            CkBxIsChecked();
+        }
+
+        private void ckbxPartTime_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CkBxIsChecked();
         }
     }
 }
