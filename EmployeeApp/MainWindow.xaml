@@ -31,7 +31,7 @@
         <TextBlock x:Name="tblkMonthlyPay" HorizontalAlignment="Left" Margin="154,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="120"/>
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="408,55,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="408,124,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20" Click="btnAdd_Click"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="408,195,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="408,195,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20" Click="btnUpdate_Click"/>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="408,269,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20"/>
 
     </Grid>

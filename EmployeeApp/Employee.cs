@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp
 {
+    //Implementing IComparable Interface for sorting
     public abstract class Employee : IComparable
     {
+        #region Properties
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public Employee(string firstName, string lastName)
         {
@@ -18,9 +25,13 @@ namespace EmployeeApp
             LastName = lastName;
         }
 
-        public abstract decimal CalculateMonthlyPay();
+        #endregion
 
-        public int CompareTo(object otherObject)
+        #region Methods
+
+        public abstract decimal CalculateMonthlyPay();//Abstract method, that child classes can override
+
+        public int CompareTo(object otherObject)//To list the employees alphabetically
         {
             Employee temp = (Employee)otherObject;
             int returnValue = this.LastName.CompareTo(temp.LastName);//Sort by LastName
@@ -30,5 +41,7 @@ namespace EmployeeApp
 
             return returnValue;
         }
+
+        #endregion
     }
 }
