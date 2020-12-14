@@ -17,6 +17,8 @@ namespace EmployeeApp
 
         public FullTimeEmployee(string firstName, string lastName) : base(firstName, lastName) { }
 
+        public FullTimeEmployee() : base("Unknown", "Unknown") { }
+
         public override string ToString()
         {
             return string.Format("{0}, {1} - Full Time", LastName.ToUpper(), FirstName);

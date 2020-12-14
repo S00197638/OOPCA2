@@ -134,5 +134,116 @@ namespace EmployeeApp
                 }
             }
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)//FIX HERE
+        {
+            if(tbxFirstName.Text != "First Name..." && tbxFirstName.Text != "" && 
+                tbxLastName.Text != "Last Name..." && tbxLastName.Text != "" &&
+                (rbtnFullTime.IsChecked != false && rbtnPartTime.IsChecked == false))
+            {
+                string firstName = "";
+                string lastName = "";
+                if (rbtnFullTime.IsChecked == true)
+                {
+                    firstName = tbxFirstName.Text;
+                    lastName = tbxLastName.Text;
+                    decimal salary = Convert.ToDecimal(tbxSalary.Text);//FIX HERE
+                    FullTimeEmployee newFTEmp = new FullTimeEmployee(firstName, lastName, salary);
+                    employees.Add(newFTEmp);
+                    lbxEmployees.ItemsSource = null;
+                    CkBxIsChecked();
+                }
+                else if (rbtnPartTime.IsChecked == true)
+                {
+                    firstName = tbxFirstName.Text;
+                    lastName = tbxLastName.Text;
+                    double hoursWorked = Convert.ToDouble(tbxHoursWorked.Text);//FIX HERE
+                    decimal hourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
+                    PartTimeEmployee newPTEmp = new PartTimeEmployee(firstName, lastName, hourlyRate, hoursWorked);
+                    employees.Add(newPTEmp);
+                    lbxEmployees.ItemsSource = null;
+                    CkBxIsChecked();
+                }
+                else
+                {
+                    firstName = tbxFirstName.Text;
+                    lastName = tbxLastName.Text;
+                    if(rbtnFullTime.IsChecked == true)
+                    {
+                        FullTimeEmployee newFTEmp = new FullTimeEmployee(firstName, lastName);
+                        employees.Add(newFTEmp);
+                        lbxEmployees.ItemsSource = null;//FIX HERE
+                        CkBxIsChecked();
+                    }
+                    else if (rbtnPartTime.IsChecked == true)
+                    {
+                        PartTimeEmployee newPTEmp = new PartTimeEmployee(firstName, lastName);
+                        employees.Add(newPTEmp);
+                        lbxEmployees.ItemsSource = null;//FIX HERE
+                        CkBxIsChecked();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("To Add an Employee, You Must Enter:\nFirst Name,\nLast Name,\n& If FT or PT!");
+                tbxFirstName.Text = "First Name...";
+                tbxLastName.Text = "Last Name...";
+                rbtnFullTime.IsChecked = false;
+                rbtnPartTime.IsChecked = false;
+                tbxSalary.Text = "Salary...";
+                tbxHoursWorked.Text = "Hours Worked...";
+                tbxHourlyRate.Text = "Hourly Rate...";
+                tbxFirstName.Background = Brushes.Red;
+                tbxLastName.Background = Brushes.Red;
+                rbtnFullTime.Background = Brushes.Red;
+                rbtnPartTime.Background = Brushes.Red;
+            }
+        }
+
+        private void tbxFirstName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxFirstName.Clear();
+            tbxFirstName.Background = Brushes.White;
+        }
+
+        private void tbxLastName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxLastName.Clear();
+            tbxLastName.Background = Brushes.White;
+        }
+
+        private void tbxSalary_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxSalary.Clear();
+        }
+
+        private void tbxHoursWorked_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxHoursWorked.Clear();
+        }
+
+        private void tbxHourlyRate_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxHourlyRate.Clear();
+        }
+
+        private void rbtnFullTime_Click(object sender, RoutedEventArgs e)
+        {
+            tbxHoursWorked.Clear();
+            tbxHourlyRate.Clear();
+            tbxSalary.Text = "Salary...";
+            rbtnFullTime.Background = Brushes.White;
+            rbtnPartTime.Background = Brushes.White;
+        }
+
+        private void rbtnPartTime_Click(object sender, RoutedEventArgs e)
+        {
+            tbxSalary.Clear();
+            tbxHoursWorked.Text = "Hours Worked...";
+            tbxHourlyRate.Text = "Hourly Rate...";
+            rbtnFullTime.Background = Brushes.White;
+            rbtnPartTime.Background = Brushes.White;
+        }
     }
 }
