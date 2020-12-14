@@ -135,53 +135,46 @@ namespace EmployeeApp
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)//FIX HERE
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxFirstName.Text != "First Name..." && tbxFirstName.Text != "" && 
+            FullTimeEmployee newFTEmp;
+            PartTimeEmployee newPTEmp;
+
+            if (tbxFirstName.Text != "First Name..." && tbxFirstName.Text != "" &&
                 tbxLastName.Text != "Last Name..." && tbxLastName.Text != "" &&
-                (rbtnFullTime.IsChecked != false && rbtnPartTime.IsChecked == false))
+                (rbtnFullTime.IsChecked != false || rbtnPartTime.IsChecked != false))
             {
-                string firstName = "";
-                string lastName = "";
+                string firstName = tbxFirstName.Text;
+                string lastName = tbxLastName.Text;
                 if (rbtnFullTime.IsChecked == true)
                 {
-                    firstName = tbxFirstName.Text;
-                    lastName = tbxLastName.Text;
-                    decimal salary = Convert.ToDecimal(tbxSalary.Text);//FIX HERE
-                    FullTimeEmployee newFTEmp = new FullTimeEmployee(firstName, lastName, salary);
+                    if(tbxSalary.Text != "Salary..." && tbxSalary.Text != "")
+                    {
+                        decimal salary = Convert.ToDecimal(tbxSalary.Text);
+                        newFTEmp = new FullTimeEmployee(firstName, lastName, salary);
+                    }
+                    else
+                        newFTEmp = new FullTimeEmployee(firstName, lastName);
+
                     employees.Add(newFTEmp);
                     lbxEmployees.ItemsSource = null;
                     CkBxIsChecked();
                 }
                 else if (rbtnPartTime.IsChecked == true)
                 {
-                    firstName = tbxFirstName.Text;
-                    lastName = tbxLastName.Text;
-                    double hoursWorked = Convert.ToDouble(tbxHoursWorked.Text);//FIX HERE
-                    decimal hourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
-                    PartTimeEmployee newPTEmp = new PartTimeEmployee(firstName, lastName, hourlyRate, hoursWorked);
+                    if(tbxHoursWorked.Text != "Hours Worked..." && tbxHoursWorked.Text != "" &&
+                        tbxHourlyRate.Text != "Hourly Rate..." && tbxHourlyRate.Text != "")
+                    {
+                        double hoursWorked = Convert.ToDouble(tbxHoursWorked.Text);
+                        decimal hourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
+                        newPTEmp = new PartTimeEmployee(firstName, lastName, hourlyRate, hoursWorked);
+                    }
+                    else
+                        newPTEmp = new PartTimeEmployee(firstName, lastName);
+
                     employees.Add(newPTEmp);
                     lbxEmployees.ItemsSource = null;
                     CkBxIsChecked();
-                }
-                else
-                {
-                    firstName = tbxFirstName.Text;
-                    lastName = tbxLastName.Text;
-                    if(rbtnFullTime.IsChecked == true)
-                    {
-                        FullTimeEmployee newFTEmp = new FullTimeEmployee(firstName, lastName);
-                        employees.Add(newFTEmp);
-                        lbxEmployees.ItemsSource = null;//FIX HERE
-                        CkBxIsChecked();
-                    }
-                    else if (rbtnPartTime.IsChecked == true)
-                    {
-                        PartTimeEmployee newPTEmp = new PartTimeEmployee(firstName, lastName);
-                        employees.Add(newPTEmp);
-                        lbxEmployees.ItemsSource = null;//FIX HERE
-                        CkBxIsChecked();
-                    }
                 }
             }
             else
