@@ -105,5 +105,34 @@ namespace EmployeeApp
         {
             CkBxIsChecked();
         }
+
+        private void lbxEmployees_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Employee selectedEmployee = lbxEmployees.SelectedItem as Employee;
+
+            if(selectedEmployee != null)
+            {
+                tbxFirstName.Text = selectedEmployee.FirstName;
+                tbxLastName.Text = selectedEmployee.LastName;
+                if (selectedEmployee is FullTimeEmployee)
+                {
+                    FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
+                    rbtnFullTime.IsChecked = true;
+                    tbxSalary.Text = temp.Salary.ToString();
+                    tbxHoursWorked.Text = "";
+                    tbxHourlyRate.Text = "";
+                    tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
+                }
+                else
+                {
+                    PartTimeEmployee temp = (PartTimeEmployee)selectedEmployee;
+                    rbtnPartTime.IsChecked = true;
+                    tbxSalary.Text = "";
+                    tbxHoursWorked.Text = temp.HoursWorked.ToString();
+                    tbxHourlyRate.Text = temp.HourlyRate.ToString();
+                    tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
+                }
+            }
+        }
     }
 }
