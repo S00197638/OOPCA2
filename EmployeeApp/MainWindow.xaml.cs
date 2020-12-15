@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace EmployeeApp
 {
@@ -21,15 +11,19 @@ namespace EmployeeApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Employee> employees = new List<Employee>();
-        List<Employee> filteredEmployees = new List<Employee>();
+        #region Lists
+
+        List<Employee> employees = new List<Employee>();//List of all employees
+        List<Employee> filteredEmployees = new List<Employee>();//List used to filter employees
+
+        #endregion
+
+        #region Setup
 
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        #region Setup
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -135,6 +129,11 @@ namespace EmployeeApp
                 //Setting the fields on the right of the display to the selected employee's data
                 tbxFirstName.Text = selectedEmployee.FirstName;
                 tbxLastName.Text = selectedEmployee.LastName;
+                //Reseting Backgrounds to White, in case they are not
+                tbxFirstName.Background = Brushes.White;
+                tbxLastName.Background = Brushes.White;
+                rbtnFullTime.Background = Brushes.White;
+                rbtnPartTime.Background = Brushes.White;
                 if (selectedEmployee is FullTimeEmployee)
                 {
                     FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
@@ -205,6 +204,7 @@ namespace EmployeeApp
                 employees.Add(newFTEmp);//Adding the new employee to the list of employees
                 lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
                 CkBxIsChecked();//Check Filtering
+                lbxEmployees.SelectedItem = newFTEmp;//Selecting the new employee
             }
             else if (rbtnPartTime.IsChecked == true)
             {
@@ -221,6 +221,7 @@ namespace EmployeeApp
                 employees.Add(newPTEmp);//Adding the new employee to the list of employees
                 lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
                 CkBxIsChecked();//Check Filtering
+                lbxEmployees.SelectedItem = newPTEmp;//Selecting the new employee
             }
         }
 
@@ -408,6 +409,19 @@ namespace EmployeeApp
                 MessageBox.Show("To Delete an Employee, You Must Select an Employee from the Employees' List!");
         }
 
+        #endregion
+
+        #region Clear Button
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            ResetMenuToDefault();
+        }
+
+        #endregion
+
+        #region Reset Menu
+
         private void ResetMenuToDefault()//Reset Menu Display back to Default Text
         {
             tbxFirstName.Text = "First Name...";
@@ -418,6 +432,13 @@ namespace EmployeeApp
             tbxHoursWorked.Text = "Hours Worked...";
             tbxHourlyRate.Text = "Hourly Rate...";
             tblkMonthlyPay.Text = "";
+            //Reseting Backgrounds to White, in case they are not
+            tbxFirstName.Background = Brushes.White;
+            tbxLastName.Background = Brushes.White;
+            rbtnFullTime.Background = Brushes.White;
+            rbtnPartTime.Background = Brushes.White;
+            //Deselecting
+            lbxEmployees.SelectedItem = null;
         }
 
         #endregion
