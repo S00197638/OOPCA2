@@ -29,6 +29,8 @@ namespace EmployeeApp
             InitializeComponent();
         }
 
+        #region Setup
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Create Initial Employees
@@ -57,7 +59,11 @@ namespace EmployeeApp
             employees.Add(pEmp2);
         }
 
-        private void CkBxIsChecked()
+        #endregion
+
+        #region Filtering
+
+        private void CkBxIsChecked()//Filtering Check
         {
             if (ckbxFullTime.IsChecked == true && ckbxPartTime.IsChecked == true)//List all Employees in alphabetical order
             {
@@ -116,6 +122,10 @@ namespace EmployeeApp
             CkBxIsChecked();
         }
 
+        #endregion
+
+        #region Selection Display
+
         private void lbxEmployees_SelectionChanged(object sender, SelectionChangedEventArgs e)//Change of selection in listbox
         {
             Employee selectedEmployee = lbxEmployees.SelectedItem as Employee;//Saving the Data of selected Employee in another employee object
@@ -145,6 +155,10 @@ namespace EmployeeApp
                 }
             }
         }
+
+        #endregion
+
+        #region Add Button
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)//When Add Button is clicked
         {
@@ -210,6 +224,10 @@ namespace EmployeeApp
             }
         }
 
+        #endregion
+
+        #region Interactions
+
         private void tbxFirstName_GotFocus(object sender, RoutedEventArgs e)//Clearing Field
         {
             tbxFirstName.Clear();
@@ -255,6 +273,10 @@ namespace EmployeeApp
             rbtnPartTime.Background = Brushes.White;
         }
 
+        #endregion
+
+        #region Update Button
+
         private void btnUpdate_Click(object sender, RoutedEventArgs e)//When Update button is clicked
         {
             Employee selectedEmployee = lbxEmployees.SelectedItem as Employee;//Saving the Data of selected Employee in another employee object
@@ -266,163 +288,107 @@ namespace EmployeeApp
                 tbxLastName.Text != "Last Name..." && tbxLastName.Text != "" &&
                 (rbtnFullTime.IsChecked != false || rbtnPartTime.IsChecked != false))
                 {
-                    if(selectedEmployee is FullTimeEmployee)
-                    {
-                        //if (ckbxPartTime.IsChecked == true)
-                        //{
-                        //    Employee emp = selectedEmployee;
-                        //    PartTimeEmployee newPTTemp = (PartTimeEmployee)emp;
-                        //    UpdatePTEmployee(newPTTemp, selectedEmployee);
-                        //    //Display error message
-                        //    if (tbxHoursWorked.Text == "Hours Worked..." && tbxHoursWorked.Text == "" && 
-                        //        tbxHourlyRate.Text == "Hourly Rate..." && tbxHourlyRate.Text == "")
-                        //    {
-                        //        MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
-                        //        tbxHoursWorked.Text = "Hours Worked...";
-                        //        tbxHourlyRate.Text = "Hourly Rate...";
-                        //        tblkMonthlyPay.Text = "";
-                        //    }
-                        //}
-                        //else if(ckbxFullTime.IsChecked == true)
-                        //{
-                        //    FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
-                        //    UpdateFTEmployee(temp, selectedEmployee);
-                        //    if(tbxSalary.Text == "Salary..." && tbxSalary.Text == "")//Display error message
-                        //    {
-                        //        MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
-                        //        tbxSalary.Text = temp.Salary.ToString();
-                        //        tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
-                        //    }
-                        //}
-                    }
+                    FullTimeEmployee tempFT = null;
+                    PartTimeEmployee tempPT = null;
+
+                    if (selectedEmployee is FullTimeEmployee)
+                        UpdateFTEmployee(tempFT, tempPT, selectedEmployee);//Updating FT Employee
                     else
-                    {
-                        //Updating employee with inputted data
-                        PartTimeEmployee temp = (PartTimeEmployee)selectedEmployee;
-                        if(tbxHoursWorked.Text != "Hours Worked..." && tbxHoursWorked.Text != "" &&
-                            tbxHourlyRate.Text != "Hourly Rate..." && tbxHourlyRate.Text != "")
-                        {
-                            temp.FirstName = tbxFirstName.Text;
-                            temp.LastName = tbxLastName.Text;
-                            temp.HoursWorked = Convert.ToDouble(tbxHoursWorked.Text);
-                            temp.HourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
-                            employees.Remove(selectedEmployee);//Remove the old employee object from the list
-                            employees.Add(temp);//Add the new updated version of the employee to the list
-                            lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
-                            CkBxIsChecked();//Check Filtering
-                            lbxEmployees.SelectedItem = temp;//Setting the selected item to the new updated employee
-                        }
-                        else//Display error message
-                        {
-                            MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
-                            tbxHoursWorked.Text = temp.HoursWorked.ToString();
-                            tbxHourlyRate.Text = temp.HourlyRate.ToString();
-                            tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
-                        }
-                    }
+                        UpdatePTEmployee(tempFT, tempPT, selectedEmployee);//Updating PT Employee
                 }
                 else//Show error message
                 {
                     MessageBox.Show("To Update an Employee, You Must Enter:\nFirst Name,\nLast Name,\nIf FT or PT," +
                         "\n& All Relevant Data!");
-                    //Reset back to old data
-                    tbxFirstName.Text = selectedEmployee.FirstName;
-                    tbxLastName.Text = selectedEmployee.LastName;
-                    if (selectedEmployee is FullTimeEmployee)
-                    {
-                        FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
-                        rbtnFullTime.IsChecked = true;
-                        tbxSalary.Text = temp.Salary.ToString();
-                        tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
-                    }
-                    else
-                    {
-                        PartTimeEmployee temp = (PartTimeEmployee)selectedEmployee;
-                        rbtnPartTime.IsChecked = true;
-                        tbxHoursWorked.Text = temp.HoursWorked.ToString();
-                        tbxHourlyRate.Text = temp.HourlyRate.ToString();
-                        tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
-                    }
+                    ResetData(selectedEmployee);//Reset back to old data
                 }
             }
             else//Show Error message
                 MessageBox.Show("To Update an Employee, You Must Select an Employee from the Employees' List!");
         }
 
-        //private void UpdatePTEmployee(PartTimeEmployee temp, Employee selectedEmployee)
-        //{
-        //    //Updating employee with inputted data
-        //    if (tbxHoursWorked.Text != "Hours Worked..." && tbxHoursWorked.Text != "" && 
-        //        tbxHourlyRate.Text != "Hourly Rate..." && tbxHourlyRate.Text != "")
-        //    {
-        //        temp.FirstName = tbxFirstName.Text;
-        //        temp.LastName = tbxLastName.Text;
-        //        temp.HoursWorked = Convert.ToDouble(tbxHoursWorked.Text);
-        //        temp.HourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
-        //        employees.Remove(selectedEmployee);//Remove the old employee object from the list
-        //        employees.Add(temp);//Add the new updated version of the employee to the list
-        //        lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
-        //        CkBxIsChecked();//Check Filtering
-        //        lbxEmployees.SelectedItem = temp;//Setting the selected item to the new updated employee
-        //    }
-        //}
+        private void UpdateFTEmployee(FullTimeEmployee tempFT, PartTimeEmployee tempPT, Employee selectedEmployee)//Updating FT Employee
+        {
+            //Updating employee with inputted data
+            tempFT = (FullTimeEmployee)selectedEmployee;
+            if (tbxSalary.Text != "Salary..." && tbxSalary.Text != "")
+            {
+                tempFT.FirstName = tbxFirstName.Text;
+                tempFT.LastName = tbxLastName.Text;
+                tempFT.Salary = Convert.ToDecimal(tbxSalary.Text);
+                UpdateEmployees(tempFT, tempPT, selectedEmployee);
+            }
+            else//Display error message
+            {
+                MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
+                tbxSalary.Text = tempFT.Salary.ToString();
+                tblkMonthlyPay.Text = tempFT.CalculateMonthlyPay().ToString("€0.00");
+            }
+        }
 
-        //private void UpdateFTEmployee(FullTimeEmployee temp, Employee selectedEmployee)
-        //{
-        //    //Updating employee with inputted data
-        //    if (tbxSalary.Text != "Salary..." && tbxSalary.Text != "")
-        //    {
-        //        temp.FirstName = tbxFirstName.Text;
-        //        temp.LastName = tbxLastName.Text;
-        //        temp.Salary = Convert.ToDecimal(tbxSalary.Text);
-        //        employees.Remove(selectedEmployee);//Remove the old employee object from the list
-        //        employees.Add(temp);//Add the new updated version of the employee to the list
-        //        lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
-        //        CkBxIsChecked();//Check Filtering
-        //        lbxEmployees.SelectedItem = temp;//Setting the selected item to the new updated employee
-        //    }
-        //}
+        private void UpdatePTEmployee(FullTimeEmployee tempFT, PartTimeEmployee tempPT, Employee selectedEmployee)//Updating PT Employee
+        {
+            //Updating employee with inputted data
+            tempPT = (PartTimeEmployee)selectedEmployee;
+            if (tbxHoursWorked.Text != "Hours Worked..." && tbxHoursWorked.Text != "" &&
+                tbxHourlyRate.Text != "Hourly Rate..." && tbxHourlyRate.Text != "")
+            {
+                tempPT.FirstName = tbxFirstName.Text;
+                tempPT.LastName = tbxLastName.Text;
+                tempPT.HoursWorked = Convert.ToDouble(tbxHoursWorked.Text);
+                tempPT.HourlyRate = Convert.ToDecimal(tbxHourlyRate.Text);
+                UpdateEmployees(tempFT, tempPT, selectedEmployee);
+            }
+            else//Display error message
+            {
+                MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
+                tbxHoursWorked.Text = tempPT.HoursWorked.ToString();
+                tbxHourlyRate.Text = tempPT.HourlyRate.ToString();
+                tblkMonthlyPay.Text = tempPT.CalculateMonthlyPay().ToString("€0.00");
+            }
+        }
 
-        //private void UpdateFTEmployee(FullTimeEmployee temp, Employee selectedEmployee)
-        //{
-        //    //Updating employee with inputted data
-        //    if (tbxSalary.Text != "Salary..." && tbxSalary.Text != "")
-        //    {
-        //        temp.FirstName = tbxFirstName.Text;
-        //        temp.LastName = tbxLastName.Text;
-        //        temp.Salary = Convert.ToDecimal(tbxSalary.Text);
-        //        employees.Remove(selectedEmployee);//Remove the old employee object from the list
-        //        employees.Add(temp);//Add the new updated version of the employee to the list
-        //        lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
-        //        CkBxIsChecked();//Check Filtering
-        //        lbxEmployees.SelectedItem = temp;//Setting the selected item to the new updated employee
+        private void UpdateEmployees(FullTimeEmployee tempFT, PartTimeEmployee tempPT, Employee selectedEmployee)//Updating Employees' List/Refreshing Data
+        {
+            if(tempFT != null)
+            {
+                employees.Remove(selectedEmployee);//Remove the old employee object from the list
+                employees.Add(tempFT);//Add the new updated version of the employee to the list
+                lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
+                CkBxIsChecked();//Check Filtering
+                lbxEmployees.SelectedItem = tempFT;//Setting the selected item to the new updated employee
+            }
+            else
+            {
+                employees.Remove(selectedEmployee);//Remove the old employee object from the list
+                employees.Add(tempPT);//Add the new updated version of the employee to the list
+                lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
+                CkBxIsChecked();//Check Filtering
+                lbxEmployees.SelectedItem = tempPT;//Setting the selected item to the new updated employee
+            }
+        }
 
+        private void ResetData(Employee selectedEmployee)//Resetting back to old Data
+        {
+            tbxFirstName.Text = selectedEmployee.FirstName;
+            tbxLastName.Text = selectedEmployee.LastName;
+            if (selectedEmployee is FullTimeEmployee)
+            {
+                FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
+                rbtnFullTime.IsChecked = true;
+                tbxSalary.Text = temp.Salary.ToString();
+                tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
+            }
+            else
+            {
+                PartTimeEmployee temp = (PartTimeEmployee)selectedEmployee;
+                rbtnPartTime.IsChecked = true;
+                tbxHoursWorked.Text = temp.HoursWorked.ToString();
+                tbxHourlyRate.Text = temp.HourlyRate.ToString();
+                tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
+            }
+        }
 
-
-        //        if (ckbxPartTime.IsChecked == true)
-        //        {
-        //            Employee emp = selectedEmployee;
-        //            FullTimeEmployee newFTTemp = (FullTimeEmployee)emp;
-        //            UpdateFTEmployee(newFTTemp, selectedEmployee);
-        //            if (tbxSalary.Text == "Salary..." && tbxSalary.Text == "")//Display error message
-        //            {
-        //                MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
-        //                tbxSalary.Text = "Salary...";
-        //                tblkMonthlyPay.Text = "";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            FullTimeEmployee temp = (FullTimeEmployee)selectedEmployee;
-        //            UpdateFTEmployee(temp, selectedEmployee);
-        //            if (tbxSalary.Text == "Salary..." && tbxSalary.Text == "")//Display error message
-        //            {
-        //                MessageBox.Show("To Update an Employee, You Must Enter All Relevant Data!");
-        //                tbxSalary.Text = temp.Salary.ToString();
-        //                tblkMonthlyPay.Text = temp.CalculateMonthlyPay().ToString("€0.00");
-        //            }
-        //        }
-        //    }
-        //}
+        #endregion
     }
 }
