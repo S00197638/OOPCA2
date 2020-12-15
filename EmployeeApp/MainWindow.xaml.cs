@@ -390,5 +390,36 @@ namespace EmployeeApp
         }
 
         #endregion
+
+        #region Delete Button
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)//When Delete Button is clicked
+        {
+            Employee selectedEmployee = lbxEmployees.SelectedItem as Employee;//Saving the Data of selected Employee in another employee object
+
+            if (selectedEmployee != null)//Making sure an employee is selected
+            {
+                employees.Remove(selectedEmployee);//Remove the employee object from the list
+                lbxEmployees.ItemsSource = null;//Refreshing the display in the listbox
+                CkBxIsChecked();//Check Filtering
+                ResetMenuToDefault();//Resetting Menu
+            }
+            else//Show Error message
+                MessageBox.Show("To Delete an Employee, You Must Select an Employee from the Employees' List!");
+        }
+
+        private void ResetMenuToDefault()//Reset Menu Display back to Default Text
+        {
+            tbxFirstName.Text = "First Name...";
+            tbxLastName.Text = "Last Name...";
+            rbtnFullTime.IsChecked = false;
+            rbtnPartTime.IsChecked = false;
+            tbxSalary.Text = "Salary...";
+            tbxHoursWorked.Text = "Hours Worked...";
+            tbxHourlyRate.Text = "Hourly Rate...";
+            tblkMonthlyPay.Text = "";
+        }
+
+        #endregion
     }
 }
